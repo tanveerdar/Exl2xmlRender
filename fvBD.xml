@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<polUni>
+	<fvTenant name="{{config['tenant']}}" >	
+		<fvBD unkMcastAct="{{config['l3_unknown_multicast']}}" unkMacUcastAct="{{config['l2_unknown_unicast']}}" unicastRoute="{{config['unicast_routing']}}" name="{{config['name']}}" multiDstPktAct="{{config['multi_dest_flood']}}"  limitIpLearnToSubnets="no" descr="{{config['description']}}" arpFlood="{{config['arp_flood']}}" status="{{config['status']}}">
+			<fvRsBDToNdP tnNdIfPolName=""/>
+			<fvRsCtx tnFvCtxName="{{config['context']}}"/>
+			<fvRsIgmpsn tnIgmpSnoopPolName="{{config['igmp_snoop']}}"/>
+			<fvRsBdToEpRet tnFvEpRetPolName="" resolveAct="resolve"/>
+			{% if config['bd_gateway_ip'] != "" %}
+				<fvSubnet ctrl="" descr="" ip="{{config['bd_gateway_ip']}}" name="" preferred="no" scope="{{config['subnet_type']}}"/>
+			{% endif %}
+			{% if config['l3_out'] != "" %}
+				<fvRsBDToOut tnL3extOutName="{{config['l3_out']}}"/>
+			{% endif %}
+		</fvBD>
+	</fvTenant>
+</polUni>
