@@ -24,7 +24,6 @@ def open_excel_wb(file_name):
 def bldtask_get(workbook, sheet_name):
     active_sheet = workbook[sheet_name]
     print("+---------- Creating Build tasks ----------+")
-    # include_rows = active_sheet.loc[active_sheet['Include'] == 'yes' , 'input_worksheet':'template_file']
     include_rows = active_sheet.loc[active_sheet['Include'].isin(['yes'])]
     inc_rows = include_rows.iloc[0:,1:]
     task_lists = inc_rows.values
@@ -56,7 +55,7 @@ def render_template(templ_path,templ_file,item):
 
 
 """
-Generic Constants to be used 
+Generic Constants to be used
 """
 
 template_path = ins.templates
@@ -76,10 +75,10 @@ Python Pandas Modules for Excel to XML Rendering
 
 
 """
-Open Excel WorkBook leveraging Pandas 
+Open Excel WorkBook leveraging Pandas
 """
 print ('\n')
-workbook = open_excel_wb('data2.xlsx')
+workbook = open_excel_wb('data.xlsx')
 tasks = bldtask_get(workbook,'build_tasks')
 print ('\n')
 
@@ -109,5 +108,3 @@ for task in tasks:
             print (xml_data)
     except:
         print("+--- Undefined error quitting further processing ")
-
-
