@@ -16,7 +16,7 @@ def open_excel_wb(file_name):
         wbdf = pd.read_excel(file_name, sheet_name= None)
         return wbdf
     except IOError as e:
-        print("Can't Open file %s" % file_name)
+        print("Can't Open file %s with error %s " % (file_name, e))
     except:
        print("Undefined error opening excel file %s " % file_name)
 
@@ -45,13 +45,13 @@ def render_template(templ_path,templ_file,item):
         xml_payload = template.render(config=item)
         return xml_payload
     except jinja2.TemplateNotFound as e:
-        print("Template file %s not found with error %s" % (template_file, e))
+        print("Template file %s not found with error %s" % (template, e))
     except jinja2.TemplateSyntaxError as e:
-        err_message = "Template %s has syntax error" % template_file
+        err_message = "Template %s has syntax error" % template
         err_lineno = str(e.message) + " line number : " + str(e.lineno)
         print(err_message + " " + err_lineno)
     except :
-        print("ERROR: Undefined error while rendering template %s" % template_file)
+        print("ERROR: Undefined error while rendering template %s" % template)
 
 
 """
