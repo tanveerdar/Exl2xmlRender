@@ -16,7 +16,7 @@ def open_excel_wb(file_name):
         wbdf = pd.read_excel(file_name, sheet_name= None)
         return wbdf
     except IOError as e:
-        print("Can't Open file %s" % file_name)
+        print("Can't Open file %s with error %s " % (file_name, e))
     except:
        print("Undefined error opening excel file %s " % file_name)
 
@@ -24,7 +24,6 @@ def open_excel_wb(file_name):
 def bldtask_get(workbook, sheet_name):
     active_sheet = workbook[sheet_name]
     print("+---------- Creating Build tasks ----------+")
-    # include_rows = active_sheet.loc[active_sheet['Include'] == 'yes' , 'input_worksheet':'template_file']
     include_rows = active_sheet.loc[active_sheet['Include'].isin(['yes'])]
     inc_rows = include_rows.iloc[0:,1:]
     task_lists = inc_rows.values
@@ -46,17 +45,17 @@ def render_template(templ_path,templ_file,item):
         xml_payload = template.render(config=item)
         return xml_payload
     except jinja2.TemplateNotFound as e:
-        print("Template file %s not found with error %s" % (template_file, e))
+        print("Template file %s not found with error %s" % (template, e))
     except jinja2.TemplateSyntaxError as e:
-        err_message = "Template %s has syntax error" % template_file
+        err_message = "Template %s has syntax error" % template
         err_lineno = str(e.message) + " line number : " + str(e.lineno)
         print(err_message + " " + err_lineno)
     except :
-        print("ERROR: Undefined error while rendering template %s" % template_file)
+        print("ERROR: Undefined error while rendering template %s" % template)
 
 
 """
-Generic Constants to be used 
+Generic Constants to be used
 """
 
 template_path = ins.templates
@@ -76,10 +75,10 @@ Python Pandas Modules for Excel to XML Rendering
 
 
 """
-Open Excel WorkBook leveraging Pandas 
+Open Excel WorkBook leveraging Pandas
 """
 print ('\n')
-workbook = open_excel_wb('data2.xlsx')
+workbook = open_excel_wb('data.xlsx')
 tasks = bldtask_get(workbook,'build_tasks')
 print ('\n')
 
@@ -109,5 +108,3 @@ for task in tasks:
             print (xml_data)
     except:
         print("+--- Undefined error quitting further processing ")
-
-
