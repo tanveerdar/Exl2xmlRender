@@ -62,7 +62,7 @@ template_path = ins.templates
 XL_FILE = ins.excel_file
 LOGFILE = "xl2acilog.log"
 CURDIR = os.getcwd()
-PATH = CURDIR + '/testscripts/Pandas'
+PATH = CURDIR + '/Users/tadar/PycharmProjects/Exl2xmlRender'
 
 
 
